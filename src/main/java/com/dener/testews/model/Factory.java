@@ -20,7 +20,7 @@ public class Factory {
 
     @Column(name = "country_code")
     private long country_code;
-//
+
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "factory")
 //    private Set<Car> cars = new HashSet<>();
@@ -56,8 +56,12 @@ public class Factory {
     public void setCountry_code(long country_code) {
         this.country_code = country_code;
     }
-//
+
 //    public Set<Car> getCars() {
 //        return cars;
+//    }
+//
+//    public void setCars(Set<Car> cars) {
+//        this.cars = cars;
 //    }
 }

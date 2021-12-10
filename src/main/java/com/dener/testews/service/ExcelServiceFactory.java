@@ -29,4 +29,8 @@ public class ExcelServiceFactory {
     public List<Factory> getAllFactories() {
         return repository.findAll();
     }
+
+    public void deleteAllFactories(){
+        repository.deleteAll();
+    }
 }

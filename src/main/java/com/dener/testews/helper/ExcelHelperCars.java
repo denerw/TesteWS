@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.dener.testews.model.Factory;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -61,9 +62,9 @@ public class ExcelHelperCars {
                             car.setId((long) currentCell.getNumericCellValue());
                             break;
 
-                        case 1:
-                            car.setFactory_id((long) currentCell.getNumericCellValue());
-                            break;
+//                        case 1:
+//                            car.setFactory_id((long) currentCell.getNumericCellValue());
+//                            break;
 
                         case 2:
                             car.setModel(currentCell.getStringCellValue());
