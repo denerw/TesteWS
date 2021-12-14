@@ -14,6 +14,7 @@ import com.dener.testews.service.ExcelServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -111,6 +112,20 @@ public class ExcelController {
         }
     }
 
+    @GetMapping(path = "/factories/{id}")
+    public ResponseEntity<Factory> getFactoryByID(@PathVariable("id") long id){
+        Factory factory =  fileServiceComplete.getFactoryById(id)
+                .orElse(null);
+        return new ResponseEntity<>(factory, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/cars/{id}")
+    public ResponseEntity<Car> getCarByID(@PathVariable("id") long id){
+        Car car = fileServiceComplete.getCarById(id)
+                .orElse(null);
+        return new ResponseEntity<>(car, HttpStatus.OK);
+    }
+
     @PostMapping("/uploadcomplete")
     public ResponseEntity<ResponseMessage> uploadFileComplete(@RequestParam("file") MultipartFile file) {
         String message = "";
@@ -139,4 +154,57 @@ public class ExcelController {
         factoryRepository.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
     }
+
+    @DeleteMapping(path="/factories/{id}")
+    public ResponseEntity<ResponseMessage> deleteFactoryById(@PathVariable("id") long id){
+        String message = "";
+        try {
+            fileServiceComplete.deleteFactory(id);
+            message = "Successfully deleted factory number " + id;
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not delete factory number " + id + " due to:" + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    @DeleteMapping(path="/cars/{id}")
+    public ResponseEntity<ResponseMessage> deleteCarById(@PathVariable("id") long id){
+        String message = "";
+        try {
+            fileServiceComplete.deleteCar(id);
+            message = "Successfully deleted car number " + id;
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not delete car number " + id + " due to:" + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    @PutMapping(path = "/factories/{id}")
+    public ResponseEntity<ResponseMessage> updateFactory(@PathVariable("id") long id, @NonNull @RequestBody Factory factoryToUpdate){
+        String message = "";
+        try {
+            fileServiceComplete.updateFactory(id, factoryToUpdate);
+            message = "Successfully updated/added factory number " + id;
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e){
+            message = "Could not update/add factory number " + id + " due to:" + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
+    @PutMapping(path = "/cars/{id}")
+    public ResponseEntity<ResponseMessage> updateCar(@PathVariable("id") long id, @NonNull @RequestBody Car carToUpdate){
+        String message = "";
+        try {
+            fileServiceComplete.updateCar(id, carToUpdate);
+            message = "Successfully updated/added car number " + id;
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not update/add car number " + id + " due to:" + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
+    }
+
 }
