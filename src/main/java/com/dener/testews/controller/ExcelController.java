@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,6 +44,7 @@ public class ExcelController {
     FactoryRepository factoryRepository;
 
     @PostMapping("/uploadfactories")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> uploadFileFactory(@RequestParam("file") MultipartFile file) {
         String message = "";
 
@@ -78,6 +80,7 @@ public class ExcelController {
     }
 
     @PostMapping("/uploadcars")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> uploadFileCar(@RequestParam("file") MultipartFile file) {
         String message = "";
 
@@ -127,6 +130,7 @@ public class ExcelController {
     }
 
     @PostMapping("/uploadcomplete")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> uploadFileComplete(@RequestParam("file") MultipartFile file) {
         String message = "";
 
@@ -148,6 +152,7 @@ public class ExcelController {
     }
 
     @DeleteMapping("/deletecarsandfactories")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> deleteEverything() {
         String message = "Just deleted all the cars and factories :(";
         carRepository.deleteAll();
@@ -156,6 +161,7 @@ public class ExcelController {
     }
 
     @DeleteMapping(path="/factories/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> deleteFactoryById(@PathVariable("id") long id){
         String message = "";
         try {
@@ -169,6 +175,7 @@ public class ExcelController {
     }
 
     @DeleteMapping(path="/cars/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> deleteCarById(@PathVariable("id") long id){
         String message = "";
         try {
@@ -182,6 +189,7 @@ public class ExcelController {
     }
 
     @PutMapping(path = "/factories/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> updateFactory(@PathVariable("id") long id, @NonNull @RequestBody Factory factoryToUpdate){
         String message = "";
         try {
@@ -195,6 +203,7 @@ public class ExcelController {
     }
 
     @PutMapping(path = "/cars/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> updateCar(@PathVariable("id") long id, @NonNull @RequestBody Car carToUpdate){
         String message = "";
         try {
