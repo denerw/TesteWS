@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("http://localhost:8080")
 @Controller
 @RequestMapping("/api/excel")
 public class ExcelController {
