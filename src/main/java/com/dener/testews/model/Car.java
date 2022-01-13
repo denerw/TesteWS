@@ -1,5 +1,7 @@
 package com.dener.testews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +33,7 @@ public class Car {
     @Column(name = "color")
     private String color;
 
+//    @JsonIgnore
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "factory_id", referencedColumnName = "id")
 //    private Factory factory;
@@ -113,8 +116,9 @@ public class Car {
 //    public Factory getFactory() {
 //        return factory;
 //    }
-
+//
 //    public void setFactory(Factory factory) {
 //        this.factory = factory;
 //    }
+
 }
